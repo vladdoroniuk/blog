@@ -16,13 +16,18 @@ const { frontmatter } = Astro.props;
 ---
 
 <Layout title={`${frontmatter.title} | ${SITE.title}`}>
-  <Header activeNav="about" />
-  <Breadcrumbs />
+  <Header activeNav="about-me" />
+  <Breadcrumbs/>
   <main id="main-content">
-    <section id="about" class="prose mb-28 max-w-3xl prose-img:border-0">
-      <h1 class="text-2xl tracking-wider sm:text-3xl">{frontmatter.title}</h1>
+    <section id="about-me" class="prose mb-28 max-w-3xl prose-img:border-0">
       <slot />
     </section>
   </main>
   <Footer />
 </Layout>
+
+<style>
+  #main-content {
+    @apply my-8;
+  }
+</style>
