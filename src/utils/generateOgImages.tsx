@@ -3,6 +3,7 @@ import { Resvg } from "@resvg/resvg-js";
 import { type CollectionEntry } from "astro:content";
 import postOgImage from "./og-templates/post";
 import siteOgImage from "./og-templates/site";
+import { getIconCode, loadEmoji } from "./twemoji";
 
 const fetchFonts = async () => {
   const fontFileRegular = await fetch(
@@ -38,6 +39,13 @@ const options: SatoriOptions = {
       style: "normal",
     },
   ],
+  loadAdditionalAsset: async (code: string, segment: string) => {
+    if (code === "emoji") {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      return `data:image/svg+xml;base64,${btoa(await loadEmoji("twemoji", getIconCode(segment)))}`;
+    }
+    return code;
+  },
 };
 
 function svgBufferToPngBuffer(svg: string) {
